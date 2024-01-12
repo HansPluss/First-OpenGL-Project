@@ -44,9 +44,10 @@ int main()
 		0.5f, -0.5f * float(sqrt(3)) / 3,0.0f,
 		0.0,0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
 
-		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-	    1.0f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-	    0.5f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f
+		-0.8f, -0.8f, 0.0f,  // bottom-left
+	    -0.8f,  0.8f, 0.0f,  // top-left
+	     0.8f, -0.8f, 0.0f,  // bottom-right
+	     0.8f,  0.8f, 0.0f   // top- right
 	};
 
 
@@ -162,7 +163,7 @@ int main()
 
 		glUniform2f(translationLocation, translationX2, translationY2);
 		glUniform3f(triangleColorLocation, 0.01f, 0.02f, 0.5f);
-		glDrawArrays(GL_TRIANGLES, 3, 3);
+		glDrawArrays(GL_TRIANGLE_STRIP, 3, 4);
 		
 		
 		// Swap front and back buffers 
