@@ -39,16 +39,15 @@ int main()
     std::cout << "Hello World!\n";
 	
 	GLfloat vertices[] = {
+    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
+    0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
+    0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
 
-		-0.5f,-0.5f * float(sqrt(3)) / 3, 0.0f,
-		0.5f, -0.5f * float(sqrt(3)) / 3,0.0f,
-		0.0,0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
-
-		-0.8f, -0.8f, 0.0f,  // bottom-left
-	    -0.8f,  0.8f, 0.0f,  // top-left
-	     0.8f, -0.8f, 0.0f,  // bottom-right
-	     0.8f,  0.8f, 0.0f   // top- right
-	};
+    -0.4f, -0.4f, 0.0f,  // bottom-left
+    -0.4f, 0.4f, 0.0f,   // top-left
+     0.4f, -0.4f, 0.0f,  // bottom-right
+     0.4f, 0.4f, 0.0f     // top-right
+};
 
 
 	if (!window)
@@ -122,7 +121,7 @@ int main()
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-		glfwPollEvents();
+		
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE))
 		{
 			std::cout << "Exit the window ..." << std::endl;
@@ -156,20 +155,25 @@ int main()
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	
-
+		//draw a triangle
 		glUniform2f(translationLocation, translationX1, translationY1);
 		glUniform3f(triangleColorLocation, 0.8f, 0.0f, 0.8f);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		glUniform2f(translationLocation, translationX2, translationY2);
-		glUniform3f(triangleColorLocation, 0.01f, 0.02f, 0.5f);
-		glDrawArrays(GL_TRIANGLE_STRIP, 3, 4);
 		
+		//draw line
+		glUniform2f(translationLocation, translationX2, translationY2);
+		glUniform3f(triangleColorLocation, 0.05f, 0.04f, 0.5f);
+		glDrawArrays(GL_LINES, 0, 4);
+		//draws a square
+		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		
+		glLineWidth(50.0f);
 		
 		// Swap front and back buffers 
 		glfwSwapBuffers(window);
 		
 		// Poll for and process events 
+		glfwPollEvents();
 		
 	}
 	glDeleteVertexArrays(1, &VAO);
