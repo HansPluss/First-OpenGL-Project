@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
+//vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n" 
 "layout (location = 0) in vec3 aPos; \n"
 "void main()\n"
@@ -38,6 +38,8 @@ int main()
     window = glfwCreateWindow(640, 580, "Test Window ", NULL, NULL);
     std::cout << "Hello World!\n";
 	
+
+	//points for triangle and line
 	GLfloat vertices[] = {
     -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
     0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
@@ -70,10 +72,12 @@ int main()
 
 	glViewport(0, 0, 640, 580);
 
+	//creating the vertex shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
 
+	//creating the fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
@@ -89,7 +93,7 @@ int main()
 	glDeleteShader(fragmentShader);
 
 
-
+	//defining VAO and VBO
 	GLuint VAO, VBO;
 
 	glGenVertexArrays(1, &VAO);
