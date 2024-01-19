@@ -4,6 +4,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 
 //vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n" 
@@ -20,6 +21,12 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "{\n"
 "   FragColor = vec4(triangleColor, 1.0f);\n"
 "}\n\0";
+
+struct Vertex {
+	float x, y, z;
+	float r, g, b;
+};
+
 
 
 int main()
@@ -92,7 +99,7 @@ int main()
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-
+	
 	//defining VAO and VBO
 	GLuint VAO, VBO;
 
@@ -122,7 +129,8 @@ int main()
 
 	GLint translationLocation = glGetUniformLocation(shaderProgram, "translation");
 	GLint triangleColorLocation = glGetUniformLocation(shaderProgram, "triangleColor");
-	/* Loop until the user closes the window */
+	
+	
 	while (!glfwWindowShouldClose(window))
 	{
 		
@@ -151,6 +159,9 @@ int main()
 			vertices[4] -= translationSpeed;
 			vertices[7] -= translationSpeed;
 		}
+
+
+
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
@@ -167,6 +178,7 @@ int main()
 		//draw line
 		glUniform2f(translationLocation, translationX2, translationY2);
 		glUniform3f(triangleColorLocation, 0.05f, 0.04f, 0.5f);
+		glDrawArrays(GL_LINE_STRIP, 0, 4);
 		glDrawArrays(GL_LINES, 0, 4);
 		//draws a square
 		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -187,3 +199,4 @@ int main()
 	glfwTerminate();
 	return 0;
 }
+
